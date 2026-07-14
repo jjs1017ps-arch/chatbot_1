@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유네스코 동아리 챗봇</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; max-width: 500px; margin: 30px auto; padding: 0 10px; }
+        h2 { text-align: center; color: #2c3e50; }
+        #chat-box { border: 1px solid #ddd; height: 450px; overflow-y: scroll; padding: 15px; background: #fdfdfd; border-radius: 8px; margin-bottom: 15px; }
+        .msg-container { margin: 10px 0; display: flex; flex-direction: column; }
+        .user-msg { align-items: flex-end; }
+        .bot-msg { align-items: flex-start; }
+        .bubble { max-width: 75%; padding: 10px 15px; border-radius: 15px; font-size: 14px; line-height: 1.5; }
+        .user-msg .bubble { background-color: #3498db; color: white; border-bottom-right-radius: 0; }
+        .bot-msg .bubble { background-color: #ecf0f1; color: #333; border-bottom-left-radius: 0; }
+        #input-container { display: flex; width: 100%; gap: 5px; }
+        #user-input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
+        #send-btn { padding: 12px 20px; background: #2c3e50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #send-btn:hover { background: #34495e; }
+    </style>
+</head>
+<body>
+<!-- 💡 [내가 바꿀 수 있는 부분]: 대제목 이름 수정 가능 -->
+<h2>🌍 유네스코 동아리 챗봇</h2>
+<div id="chat-box">
+    {% for chat in history %}
+    {% if chat.sender == 'user' %}
+    <div class="msg-container user-msg"><div class="bubble">{{ chat.text }}</div></div>
+    {% else %}
+    <div class="msg-container bot-msg"><div class="bubble">{{ chat.text }}</div></div>
+    {% endif %}
+    {% endfor %}
+</div>
+<!-- AJAX 보안 검사를 안전하게 우회하는 전통 Form 통신 방식 -->
+<form method="POST" action="/" id="input-container">
+    <!-- 💡 [내가 바꿀 수 있는 부분]: 입력창 안의 기본 문구 수정 가능 -->
+    <input type="text" name="message" id="user-input" placeholder="유네스코에 대해 물어보세요..." required autocomplete="off" autofocus>
+    <button type="submit" id="send-btn">전송</button>
+</form>
+<script>
+    window.onload = function() {
+        var chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
