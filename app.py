@@ -67,7 +67,7 @@ def home():
 
                 # Google GenAI 모델 추론 요청 발송 (풍부하고 다정한 황금 분량 세팅)
                 response = client.models.generate_content(
-                    model='gemini-3.5-flash',
+                    model='gemini-2.5-flash',
                     contents=user_message,
                     config=types.GenerateContentConfig(
                         system_instruction=(
